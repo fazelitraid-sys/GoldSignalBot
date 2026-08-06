@@ -1,6 +1,21 @@
-import time
+import os
+from telegram import Update
+from telegram.ext import Application, CommandHandler, ContextTypes
 
-print("GoldSignalBot Started Successfully!")
+TOKEN = os.getenv("BOT_TOKEN")
 
-while True:
-    time.sleep(60)
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("🤖 GoldSignalBot با موفقیت روی Render اجرا شد!")
+
+def main():
+    if not TOKEN:
+        raise ValueError("BOT_TOKEN environment variable is not set!")
+
+    app = Application.builder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+
+    print("GoldSignalBot Started Successfully!")
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
