@@ -1,1 +1,1 @@
-
+print("GoldSignalBot Started Successfully!")
